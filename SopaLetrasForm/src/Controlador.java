@@ -11,15 +11,11 @@ public class Controlador {
         this.vista = vista;
     }
     
-    public ArrayList<String> controladorObtenerPalabras() {
+    public String controladorObtenerPalabras() {
         return modelo.obtenerPalabras();
     }
     
-    public String generarSopa() {
-        ArrayList<String> palabras = controladorObtenerPalabras();
-        sopa = new SopaLetras(palabras);
-        return sopa.obtenerSopaComoTexto(); 
-    }
+    
     
     public void añadirPalabra(String palabra){
         modelo.agregarPalabra(palabra);

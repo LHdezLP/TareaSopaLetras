@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,9 +16,9 @@ public class Form extends javax.swing.JFrame {
     /**
      * Creates new form Form
      */
-    private Modelo modelo = new Modelo(); 
-    
-    private Controlador controlador; 
+    private Modelo modelo = new Modelo();
+
+    private Controlador controlador;
 
     public Form() {
         initComponents();
@@ -149,12 +148,12 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonSopaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSopaActionPerformed
-        SopaDeLetras.setText(controlador.generarSopa());
+        
 
     }//GEN-LAST:event_BotonSopaActionPerformed
 
     private void AÑADIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AÑADIRActionPerformed
-        String palabra = palabranueva.getText(); 
+        String palabra = palabranueva.getText();
         if (!palabra.isEmpty()) {
             controlador.añadirPalabra(palabra);
         }
@@ -162,11 +161,12 @@ public class Form extends javax.swing.JFrame {
 
     private void CONSULTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONSULTARActionPerformed
 
-        ArrayList<String> palabras = controlador.controladorObtenerPalabras();
+        String palabras = controlador.controladorObtenerPalabras();
 
         if (palabras != null && !palabras.isEmpty()) {
+            String[] palabrasArray = palabras.split(", "); // Separamos la cadena por comas
             DefaultListModel<String> modeloLista = new DefaultListModel<>();
-            for (String palabra : palabras) {
+            for (String palabra : palabrasArray) {
                 modeloLista.addElement(palabra);
             }
             ListArea.setModel(modeloLista);

@@ -14,22 +14,27 @@ public class Modelo {
     
     private final String sURL = "jdbc:mariadb://localhost:3306/sopaletra";
     
-    public ArrayList<String> obtenerPalabras() {
-        ArrayList<String> palabras = new ArrayList<>();
+    public String obtenerPalabras() {
+    StringBuilder palabrasConcatenadas = new StringBuilder();
+    
+    try (Connection con = DriverManager.getConnection(sURL, "root", "");
+         Statement s = con.createStatement();
+         ResultSet rs = s.executeQuery("SELECT * FROM palabras")) {
         
-        try (Connection con = DriverManager.getConnection(sURL, "root", "");
-             Statement s = con.createStatement();
-             ResultSet rs = s.executeQuery("SELECT * FROM palabras")) {
-            
-            while (rs.next()) {
-                palabras.add(rs.getString("palabra"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        while (rs.next()) {
+            palabrasConcatenadas.append(rs.getString("palabra")).append(", ");
         }
         
-        return palabras;
+        // Elimina la última coma y el espacio extra
+        if (palabrasConcatenadas.length() > 0) {
+            palabrasConcatenadas.setLength(palabrasConcatenadas.length() - 2);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    return palabrasConcatenadas.toString();
+}
     
     public void agregarPalabra(String palabra) {
         try {

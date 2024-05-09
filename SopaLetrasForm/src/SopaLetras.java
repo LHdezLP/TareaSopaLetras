@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class SopaLetras {
     
-    String palabras;
+    String palabras; 
     public static String[][] M; //Variable global
     static int[][] H; //Variable global array de huecos
 
     public SopaLetras(ArrayList<String> palabras) {
-        
+        palabras = controlador.controladorObtenerPalabras();
         M = new String[10][20];
         H = new int[10][20];
         inicializaMatrices();//Genera la SOPA y los huecos
