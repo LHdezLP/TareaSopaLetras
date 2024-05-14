@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,9 +16,9 @@ public class Form extends javax.swing.JFrame {
     /**
      * Creates new form Form
      */
-    private Modelo modelo = new Modelo(); 
-    
-    private Controlador controlador; 
+    private Modelo modelo = new Modelo();
+
+    private Controlador controlador;
 
     public Form() {
         initComponents();
@@ -55,7 +54,7 @@ public class Form extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         SopaDeLetras.setColumns(20);
-        SopaDeLetras.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        SopaDeLetras.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         SopaDeLetras.setRows(5);
         SopaDeLetras.setWrapStyleWord(true);
         SopaDeLetras.setMargin(new java.awt.Insets(4, 6, 4, 6));
@@ -114,13 +113,14 @@ public class Form extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addComponent(palabranueva, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(28, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(201, 201, 201)
-                        .addComponent(BotonSopa)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotonSopa)
+                        .addGap(200, 200, 200))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +131,6 @@ public class Form extends javax.swing.JFrame {
                     .addComponent(BotonSopa))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(palabranueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -141,32 +140,35 @@ public class Form extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(CONSULTAR)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(CONSULTAR))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonSopaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSopaActionPerformed
-        SopaDeLetras.setText(controlador.generarSopa());
-
+        String sopaLetras = controlador.generarSopa();
+        SopaDeLetras.setText(sopaLetras);
     }//GEN-LAST:event_BotonSopaActionPerformed
 
     private void AÑADIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AÑADIRActionPerformed
-        String palabra = palabranueva.getText(); 
-        if (!palabra.isEmpty()) {
+        String palabra = palabranueva.getText();
+        int totalPalabras = controlador.obtenerCuentapalabras();
+        if (totalPalabras < 8) {
             controlador.añadirPalabra(palabra);
-        }
+        } 
     }//GEN-LAST:event_AÑADIRActionPerformed
 
     private void CONSULTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONSULTARActionPerformed
 
-        ArrayList<String> palabras = controlador.controladorObtenerPalabras();
+        String palabras = controlador.controladorObtenerPalabras();
 
         if (palabras != null && !palabras.isEmpty()) {
+            String[] palabrasArray = palabras.split(",");
             DefaultListModel<String> modeloLista = new DefaultListModel<>();
-            for (String palabra : palabras) {
+            for (String palabra : palabrasArray) {
                 modeloLista.addElement(palabra);
             }
             ListArea.setModel(modeloLista);
@@ -180,38 +182,6 @@ public class Form extends javax.swing.JFrame {
             controlador.borrarPalabra(palabraSeleccionada);
         }
     }//GEN-LAST:event_BORRARActionPerformed
-
-    public JButton getAÑADIR() {
-        return AÑADIR;
-    }
-
-    public void setAÑADIR(JButton AÑADIR) {
-        this.AÑADIR = AÑADIR;
-    }
-
-    public JButton getBORRAR() {
-        return BORRAR;
-    }
-
-    public void setBORRAR(JButton BORRAR) {
-        this.BORRAR = BORRAR;
-    }
-
-    public JButton getBotonSopa() {
-        return BotonSopa;
-    }
-
-    public void setBotonSopa(JButton BotonSopa) {
-        this.BotonSopa = BotonSopa;
-    }
-
-    public JButton getCONSULTAR() {
-        return CONSULTAR;
-    }
-
-    public void setCONSULTAR(JButton CONSULTAR) {
-        this.CONSULTAR = CONSULTAR;
-    }
 
     /**
      * @param args the command line arguments

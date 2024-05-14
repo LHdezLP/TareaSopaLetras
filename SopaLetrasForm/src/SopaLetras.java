@@ -8,16 +8,17 @@ import java.util.ArrayList;
  */
 
 public class SopaLetras {
-    
-    String palabras;
-    public static String[][] M; //Variable global
-    static int[][] H; //Variable global array de huecos
+    Controlador controlador;
+    String palabras; 
+    public static String[][] M;
+    static int[][] H;
 
-    public SopaLetras(ArrayList<String> palabras) {
-        
+    public SopaLetras(Controlador controlador) {
+        this.controlador = controlador;
+        palabras = controlador.controladorObtenerPalabras();
         M = new String[10][20];
         H = new int[10][20];
-        inicializaMatrices();//Genera la SOPA y los huecos
+        inicializaMatrices();
         colocarTodas();
     }
 
@@ -249,7 +250,7 @@ public class SopaLetras {
     public void colocarTodas() {
         // String palabras = "SWITCH,WHILE,CLASS,PRIVATE,PUBLIC,PROTECTED,EXTENDS";
 //palabras=palabras.toLowerCase();
-        String[] palabra = this.palabras.split(",");
+        String[] palabra = palabras.split(",");
         int orientacion;
         String[] word;
         int longPalabra = palabra.length;
